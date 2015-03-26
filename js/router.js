@@ -4,15 +4,14 @@
 		/*首页*/
 		"index":{
 				fn:function(data){
-					var template=app.views.get("index");
-					var index = new template();
-					index.data={goodList:[{"image":"css/images/good.png","des":"枪灰色布纹羊反绒_猪皮粉橙色布纹黑白点布透明材质","price":"￥598","costPrice":"￥1299"},
-											{"image":"css/images/good.png","des":"枪灰色布纹羊反绒_猪皮粉橙色布纹黑白点布透明材质","price":"￥598","costPrice":"￥1299"},
-											{"image":"css/images/good.png","des":"枪灰色布纹羊反绒_猪皮粉橙色布纹黑白点布透明材质","price":"￥598","costPrice":"￥1299"},
-											{"image":"css/images/good.png","des":"枪灰色布纹羊反绒_猪皮粉橙色布纹黑白点布透明材质","price":"￥598","costPrice":"￥1299"},
-											{"image":"css/images/good.png","des":"枪灰色布纹羊反绒_猪皮粉橙色布纹黑白点布透明材质","price":"￥598","costPrice":"￥1299"}
-						]}
-					index.render();
+					app.apis.run("getGood",null,function(returnData){/*调用API获得数据*/
+						var template=app.views.get("index");
+						var index = new template();
+						var pageData={goodList:returnData}/*按页面需求整理数据*/
+						index.data=pageData;
+						index.render();
+					})
+					
 				}
 			}
 		};
@@ -26,7 +25,7 @@
 				if(!get.page){
 					get.page = "index"
 				};	
-			routeTable[get.page].fn(get);
+			routeTable[get.page].fn(get);/*通过get的page值调页面*/
 			suit()
 			}
 		});

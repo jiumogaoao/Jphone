@@ -1,6 +1,7 @@
 ;(function(obj){
 	var returnObj = {};
 	returnObj.good=[];
+	returnObj.goodUpDate=0;
 obj.get = function(name){
 		if(returnObj[name]){
 			return returnObj[name]

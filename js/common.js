@@ -19,28 +19,21 @@
 var app = {
     // Application Constructor
     initialize: function() {
-		if(!app.total){
-			app.total = true;
-            var myScroll = new IScroll('#wrapper', { mouseWheel: true, click: true });
-            document.addEventListener('touchmove', function (e) { e.preventDefault(); }, false);
-			var chushi = setTimeout(function(){
-			    app.caches.route = new app.routers();	
-			    app.onDeviceReady();
-               // debugger;
-			},100);
-		}
-		
-    },
-    // deviceready Event Handler
-    //
-    // The scope of 'this' is the event. In order to call the 'receivedEvent'
-    // function, we must explicitly call 'app.receivedEvent(...);'
-    onDeviceReady: function() {
-        Backbone.history.start({pushState : true});
+  		if(!app.total){
+  			app.total = true;
+        /*调用iscorll*/
+              var myScroll = new IScroll('#wrapper', { mouseWheel: true, click: true });
+              document.addEventListener('touchmove', function (e) { e.preventDefault(); }, false);
+
+  			var init = setTimeout(function(){
+  			    app.caches.route = new app.routers();	/*实例化路由*/
+            Backbone.history.start({pushState : true});/*启动路由*/
+  			},100);
+  		}
     }
 };
 
-var socket = io.connect('http://localhost:8888');
+var socket = io.connect('http://localhost:8888');/*连接nodejs*/
    socket.on('connected', function (data) {
      console.log('nodejs connected');
    });
@@ -82,11 +75,11 @@ function suit(){/*自适应计算*/
         fontSize=($(window).width()/320)*10;
         $("html").css("font-size",($(window).width()/320)*10+"px");
 };
-resizeArry.suit=suit
-app.models = {};
-app.collections = {};
-app.apis = {};
-app.views = {};
-app.caches = {};
-app.fns = {};
+resizeArry.suit=suit/*加入自适应队列*/
+app.models = {};/*数据模型*/
+app.collections = {};/*集合模型*/
+app.apis = {};/*api*/
+app.views = {};/*视图模板*/
+app.caches = {};/*数据缓存*/
+app.fns = {};/*公用方法*/
 
